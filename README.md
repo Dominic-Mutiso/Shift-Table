@@ -15,10 +15,10 @@ Check the mock shell or SAP as this is sometimes optional. Use the `ADSL` datase
 
 Use `rbind` or `bind_rows` to duplicate the created data frame and use `mutate` or `transform` within `rbind` to assign `trt01an = 3`, which represents the treatment total.
 
-```          r
+```          R
 missing_rows <- adsl1 %>%
     bind_rows(mutate(adsl1, TRT01AN = 3)) %>% ...
- 
+ ```
 
 
 ### Update Missing Rows Dataset
