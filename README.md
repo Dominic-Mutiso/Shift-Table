@@ -50,16 +50,8 @@ shell <- expand.grid(
   BASEC_ = unique(results$BASEC_),
   AVALC_ = unique(results$AVALC_),
   TRT01AN = unique(results$TRT01AN)
-) %>%
-  arrange(AVISITN, TRT01AN, BASEC_) %>%
-  distinct(AVISITN, TRT01AN, BASEC_, AVALC_, .keep_all = TRUE) %>%
-  mutate(
-    count = 0,
-    AVISIT = case_when(
-      AVISITN == 8  ~ "Week 4",
-      AVISITN == 11 ~ "Week 12",
-      TRUE          ~ "Week 16"
-    )
+                   ) %>%
+  mutate(count = 0,...)
   )
 
 View(shell)
