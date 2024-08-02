@@ -36,9 +36,7 @@ f_summary <- function(group = c("AVISITN", "AVISIT", "TRT01AN", "BASEC_", "AVALC
 
 result1 <- f_summary()
 View(result1)
-
-```markdown
-
+```
 ## Dummy Shell
 
 The "dummy shell" ensures that all possible combinations of certain grouping variables are present in the dataset, even if some of them are missing in the actual data. Initialize the `count` variable to zero and update it with the actual count data. This requires merging using `left_join`.
