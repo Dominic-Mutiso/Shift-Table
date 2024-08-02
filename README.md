@@ -60,6 +60,17 @@ View(shell)
 
 Percentage in a particular cell is calculated as follows: the number of subjects in that particular cell divided by the total number of subjects per visit per treatment group multiplied by 100.
 
+```r
+reshell1 <- reshell %>% 
+            group_by(AVISITN, TRT01AN) %>%
+            mutate(
+                   den = last(count),
+                   count_c = sprintf("%3d", count),
+                   perc_ = sprintf("%5.1f", round(count / den * 100, 1)),
+                   ...
+                  )   
+```
+
 ### Transposing from Narrow (Long) to Wide
 
 The `clean_names()` function comes from the `janitor` package and ensures all variable names are consistent in just one line of code.
