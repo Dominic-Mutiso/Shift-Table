@@ -35,7 +35,7 @@ f_summary <- function(group = c("AVISITN", "AVISIT", "TRT01AN", "BASEC_", "AVALC
 result1 <- f_summary()
 View(result1)
 ```
-### Why is `group_by(group)` Wrong?
+### Why is `group_by(group)` wrong?
 
 Using `group_by(group)` treats `group` as a single variable name, so it looks for a column literally named `group` in our data frame, which does not exist. It does not interpret `group` as a vector of column names to be used for grouping. Therefore, a dynamic approach is required to select and use the column names.
 
