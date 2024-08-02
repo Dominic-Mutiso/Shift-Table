@@ -50,8 +50,7 @@ shell <- expand.grid(
   BASEC_ = unique(results$BASEC_),
   AVALC_ = unique(results$AVALC_),
   TRT01AN = unique(results$TRT01AN)
-                   ) %>%
-  mutate(count = 0,...)
-  )
+  ) %>%
+  mutate(count = 0,...))
 
 View(shell)
