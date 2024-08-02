@@ -19,11 +19,19 @@ Use `rbind` or `bind_rows` to duplicate the created data frame and use `mutate` 
 
 The `ADEG` dataset contains the actual baseline (`AVALC`) and post-baseline values (`BASEC`). The dataset created using the `expand.grid` function has all possible visits a subject can have with `AVALC` and `BASEC` values assigned as 'Missing'. Update this with the actual values after doing a `left_join`. You can use `ifelse` or `coalesce` depending on your preference. If a subject has no actual value from `ADEG`, those values will remain as "Missing".
 
+```r
+adeg02 <- missing_rows %>% 
+          left_join(adeg1, by = c("USUBJID", "AVISITN", "AVISIT", "TRT01AN")) %>%
+          mutate(
+                  BASEC_ = ifelse(!is.na(BASEC.y), BASEC.y, BASEC.x),
+                  AVALC_ = AVALC_=coalesce(AVALC.y,AVALC.x)
+    ) %>% ...
+
+```
+
 ### Get Count
 
 We have created a user-defined function to get the counts at different grouping levels. The `group_by_at()` function is used to dynamically specify the grouping variables. This is useful when you want to pass a variable or a list of variables as arguments to a function. The following functions play a similar role: `group_by(pick(all_of(group)))` or `group_by(across(all_of(group)))`.
-
-
 
 ```r
 # Summary statistics function
