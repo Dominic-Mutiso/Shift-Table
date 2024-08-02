@@ -51,7 +51,7 @@ adeg02 <- missing_rows %>%
           left_join(adeg1, by = c("USUBJID", "AVISITN", "AVISIT", "TRT01AN")) %>%
           mutate(
                   BASEC_ = ifelse(!is.na(BASEC.y), BASEC.y, BASEC.x),
-                  AVALC_ = AVALC_=coalesce(AVALC.y,AVALC.x)
+                  AVALC_ = coalesce(AVALC.y,AVALC.x)
     ) %>% ...
 
 ```
