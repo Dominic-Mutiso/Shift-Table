@@ -55,7 +55,7 @@ adeg02 <- missing_rows %>%
 
 ```
 
-### Get Count
+### Get Frequency Counts
 
 We have created a user-defined function to get the counts at different grouping levels. The `group_by_at()` function is used to dynamically specify the grouping variables. This is useful when you want to pass a variable or a list of variables as arguments to a function. The following functions play a similar role: `group_by(pick(all_of(group)))` or `group_by(across(all_of(group)))`.
 
@@ -114,4 +114,5 @@ t_reshell <- reshell1 %>%
   pivot_wider(names_from = c(BASEC_, TRT01AN), values_from = count_per) %>%
   select(AVISIT, everything()) %>%
   clean_names()
-
+```
+That's all! Happy R programming!
