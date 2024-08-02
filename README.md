@@ -10,6 +10,20 @@ These counts display the total number of subjects in each treatment group at the
 ### Generate Missing Rows
 
 Check the mock shell or SAP as this is sometimes optional. Use the `ADSL` dataset, as it contains one record per subject, and assign the expected visits (`AVISITN = 8, 11, 12`). The `expand.grid` function creates a data frame from all combinations of the supplied vectors. For the baseline (`BASEC`) and post-baseline values (`AVALC`), assign "Missing". If the provided SAP/mock shell does not contain the post-baseline and baseline result value as "Missing", then ignore this step.
+```r
+adsl1 <- expand.grid(USUBJID = unique(adsl$USUBJID), AVISITN = c(8, 11, 12)) %>%
+    distinct(USUBJID, AVISITN, .keep_all = TRUE) %>% # Ensure no duplicates
+    left_join(adsl, by = "USUBJID") %>% # Retain previous existing variables
+    mutate(
+        AVISIT = case_when(
+            AVISITN == 8  ~ "Week 4",
+            AVISITN == 11 ~ "Week 12",
+            .default = "Week 16"
+        ),
+        AVALC = "Missing",
+        BASEC = "Missing"
+    )
+```
 
 ### Treatment Total
 
