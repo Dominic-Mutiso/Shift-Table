@@ -22,6 +22,10 @@ The `ADEG` dataset contains the actual baseline (`AVALC`) and post-baseline valu
 
 We have created a user-defined function to get the counts at different grouping levels. The `group_by_at()` function is used to dynamically specify the grouping variables. This is useful when you want to pass a variable or a list of variables as arguments to a function. The following functions play a similar role: `group_by(pick(all_of(group)))` or `group_by(across(all_of(group)))`.
 
+### Why is `group_by(group)` Wrong?
+
+Using `group_by(group)` treats `group` as a single variable name, so it looks for a column literally named `group` in our data frame, which does not exist. It does not interpret `group` as a vector of column names to be used for grouping. Therefore, a dynamic approach is required to select and use the column names.
+
 ```r
 # Summary statistics function
 f_summary <- function(group = c("AVISITN", "AVISIT", "TRT01AN", "BASEC_", "AVALC_")) {
@@ -35,9 +39,7 @@ View(result1)
 
 
 
-### Why is `group_by(group)` Wrong?
 
-Using `group_by(group)` treats `group` as a single variable name, so it looks for a column literally named `group` in our data frame, which does not exist. It does not interpret `group` as a vector of column names to be used for grouping. Therefore, a dynamic approach is required to select and use the column names.
 
 ## Dummy Shell
 
