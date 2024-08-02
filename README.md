@@ -54,3 +54,18 @@ shell <- expand.grid(
   mutate(count = 0,...))
 
 View(shell)
+```
+## Calculate Percentages
+
+Percentage in a particular cell is calculated as follows: the number of subjects in that particular cell divided by the total number of subjects per visit per treatment group multiplied by 100.
+
+## Transposing from Narrow (Long) to Wide
+
+The `clean_names()` function comes from the `janitor` package and ensures all variable names are consistent in just one line of code.
+
+```r
+t_reshell <- reshell1 %>%
+  pivot_wider(names_from = c(BASEC_, TRT01AN), values_from = count_per) %>%
+  select(AVISIT, everything()) %>%
+  clean_names()
+
