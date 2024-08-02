@@ -20,6 +20,8 @@ The `ADEG` dataset contains the actual baseline (`AVALC`) and post-baseline valu
 
 ## Get Count
 
+We have created a user-defined function to get the counts at different grouping levels. The `group_by_at()` function is used to dynamically specify the grouping variables. This is useful when you want to pass a variable or a list of variables as arguments to a function. The following functions play a similar role: `group_by(pick(all_of(group)))` or `group_by(across(all_of(group)))`.
+
 ```r
 # Summary statistics function
 f_summary <- function(group = c("AVISITN", "AVISIT", "TRT01AN", "BASEC_", "AVALC_")) {
@@ -30,3 +32,34 @@ f_summary <- function(group = c("AVISITN", "AVISIT", "TRT01AN", "BASEC_", "AVALC
 
 result1 <- f_summary()
 View(result1)
+
+
+
+### Why is `group_by(group)` Wrong?
+
+Using `group_by(group)` treats `group` as a single variable name, so it looks for a column literally named `group` in our data frame, which does not exist. It does not interpret `group` as a vector of column names to be used for grouping. Therefore, a dynamic approach is required to select and use the column names.
+
+## Dummy Shell
+
+The "dummy shell" ensures that all possible combinations of certain grouping variables are present in the dataset, even if some of them are missing in the actual data. Initialize the `count` variable to zero and update it with the actual count data. This requires merging using `left_join`.
+
+```r
+# Using expand.grid function
+shell <- expand.grid(
+  AVISITN = unique(results$AVISITN),
+  BASEC_ = unique(results$BASEC_),
+  AVALC_ = unique(results$AVALC_),
+  TRT01AN = unique(results$TRT01AN)
+) %>%
+  arrange(AVISITN, TRT01AN, BASEC_) %>%
+  distinct(AVISITN, TRT01AN, BASEC_, AVALC_, .keep_all = TRUE) %>%
+  mutate(
+    count = 0,
+    AVISIT = case_when(
+      AVISITN == 8  ~ "Week 4",
+      AVISITN == 11 ~ "Week 12",
+      TRUE          ~ "Week 16"
+    )
+  )
+
+View(shell)
