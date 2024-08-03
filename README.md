@@ -7,7 +7,7 @@ Shift tables display the change in the frequency of subjects across specified ca
 ### Get Big N
 
 These counts display the total number of subjects in each treatment group at the top level of the report headers.
-```r
+```
 big_n <- rbind(adsl, transform(adsl, TRT01AN = 3)) %>% # Output for treatment Total
     group_by(TRT01AN) %>% 
     filter(SAFFL == "Y") %>%
