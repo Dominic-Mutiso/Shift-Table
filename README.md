@@ -108,7 +108,7 @@ reshell1 <- reshell %>%
 
 ### Transposing from Narrow (Long) to Wide
 
-The `clean_names()` function comes from the `janitor` package ensures all variable names are consistent in just one line of code.
+The `clean_names()` function comes from the `janitor` package and ensures all variable names are consistent in just one line of code.
 
 ```r
 t_reshell <- reshell1 %>%
